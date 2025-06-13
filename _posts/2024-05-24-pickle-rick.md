@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Pickle Rick – TryHackMe"
+categories: thm
 date: 2024-05-24
 ---
 
