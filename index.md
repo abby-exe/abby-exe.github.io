@@ -12,4 +12,10 @@ Welcome to my portfolio – here you'll find:
 - 🐞 Bug bounty reports
 - 📄 Projects and resume
 
-[📚 View all writeups](./)
+---
+
+{% for post in site.posts %}
+### 🔗 [{{ post.title }}]({{ post.url }})
+📅 {{ post.date | date: "%B %d, %Y" }}
+<hr>
+{% endfor %}
