@@ -8,9 +8,10 @@ title: "Welcome to AbbySec"
 Cybersecurity student at UNITEN | CTF player | Bug bounty enthusiast  
 Welcome to my portfolio – here you'll find:
 
-- 🧠 CTF writeups
-- 🐞 Bug bounty reports
-- 📄 Projects and resume
+<p>
+  <a href="/ctf.html">▶️ CTF Writeups</a><br>
+  <a href="/bugbounty.html">🐞 Bug Bounty Reports</a><br>
+</p>
 
 ---
 
