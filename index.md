@@ -14,7 +14,7 @@ Welcome to my portfolio – here you'll find:
 </p>
 
 ---
-
+<p><strong>Latest Post:</strong></p>
 {% for post in site.posts %}
 ### 🔗 [{{ post.title }}]({{ post.url }})
 📅 {{ post.date | date: "%B %d, %Y" }}
