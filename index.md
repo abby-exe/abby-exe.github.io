@@ -3,8 +3,6 @@ layout: default
 title: "Welcome to AbbySec"
 ---
 
-<link rel="icon" href="/favicon.png" type="image/x-icon">
-
 # ☠️ Abbhilash Simanchalam ☠️
 
 Cybersecurity student at UNITEN | CTF player | Bug bounty enthusiast  
