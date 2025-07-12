@@ -3,7 +3,7 @@ layout: default
 title: "Welcome to AbbySec"
 ---
 
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon-32x32.png" type="image/x-icon">
 
 # ☠️ Abbhilash Simanchalam ☠️
 
