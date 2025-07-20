@@ -25,14 +25,14 @@ VulnNet Roasted is an **Active Directory (AD) exploitation** challenge on TryHac
 ---
 
 ## 💻 Target Info
-Machine Name: VulnNet Roasted
-Platform: TryHackMe
-Difficulty: Medium
-Target IP (initial): 10.10.57.250
-Redeployed IPs: 10.10.149.244, 10.10.67.90 (due to session expiry after ~20 mins)
-Domain: vulnnet-rst.local
-OS: Windows Server 2019 (based on Nmap results)
-Tags: Active Directory, Kerberos, Pass-the-Hash, Impacket, Evil-WinRM, Privilege Escalation
+- **Machine Name:** VulnNet Roasted
+- **Platform:** TryHackMe
+- **Difficulty:** Easy but medium in my case
+- **Target IP (initial):** 10.10.57.250
+- **Redeployed IPs:** 10.10.149.244, 10.10.67.90 (due to session expiry after ~20 mins)
+- **Domain:** vulnnet-rst.local
+- **OS:** Windows Server 2019 (based on Nmap results)
+- **Tags:** Active Directory, Kerberos, Pass-the-Hash, Impacket, Evil-WinRM, Privilege Escalation
 
 ---
 ## ✅ Step 1: Nmap Scan
