@@ -10,6 +10,7 @@ Welcome to my portfolio – here you'll find:
 
 <p>
   <a href="/ctf.html">▶️ CTF Writeups</a><br>
+  <p> </p>
   <a href="/bugbounty.html">🐞 Bug Bounty Reports</a><br>
 </p>
 
