@@ -5,8 +5,6 @@ categories: osint
 date: 2026-03-05
 ---
 
-# OSINT Investigation: Uncovering the Truth Behind the High-Profile Kollywood Divorce Leak
-
 **Category:** OSINT / Case Studies  
 **Date:** 6th March 2026  
 **Author:** Abbhilash Simanchalam
