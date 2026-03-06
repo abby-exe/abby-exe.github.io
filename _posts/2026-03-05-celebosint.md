@@ -36,6 +36,7 @@ My first task was to verify the digital presence of Subject TK. Rumors suggested
 To confirm the account owner without alerting the target, I used the Instagram "Forgot Password" routing method. This reveals a masked recovery email and phone number.
 
 ![Instagram Forgot Password Discovery](/assets/img/osint/osint1/redacted_ig_forgot_password.jpg)
+
 *(Image: Masked email and SMS recovery options extracted from the pet account)*
 
 * **Masked Email Found:** `t*************3@gmail.com`
@@ -68,6 +69,7 @@ Since the direct digital enumeration failed, I pivoted to a "Pattern of Life" an
 The most crucial part of this investigation was verifying the divorce document that surfaced on February 27, 2026. Fans claimed it was a forged PDF. To find the truth, I went straight to the source: the **e-Courts Services India portal**.
 
 ![e-Courts Search Portal](/assets/img/osint/osint1/ecourts_search.jpg)
+
 *(Image: Searching the official Indian judiciary portal using Party Names)*
 
 By searching the Chengalpattu District Court records for the petitioner and respondent names, I successfully located the official case registry. **The document leak was authentic.**
@@ -75,6 +77,7 @@ By searching the Chengalpattu District Court records for the petitioner and resp
 ### Verified Case Details
 
 ![e-Courts Case Status](/assets/img/osint/osint1/redacted_case_status.jpg)
+
 *(Image: The official case status confirming the filing and hearing dates)*
 
 | Parameter | Verified Detail |
