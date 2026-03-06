@@ -1,8 +1,15 @@
+---
+layout: post
+title: "OSINT Investigation: Uncovering the Truth Behind the High-Profile Kollywood Divorce Leak"
+categories: osint
+date: 2026-03-05
+---
+
 # OSINT Investigation: Uncovering the Truth Behind the High-Profile Kollywood Divorce Leak
 
 **Category:** OSINT / Case Studies  
-**Date:** March 2026  
-**Author:** [Your Handle/Name]
+**Date:** 6th March 2026  
+**Author:** Abbhilash Simanchalam
 
 ## 1. Background & Motivation
 
@@ -26,11 +33,11 @@ To conduct this investigation objectively, I relied exclusively on passive recon
 
 ## 3. Digital Footprint & Email Discovery
 
-My first task was to verify the digital presence of Subject TK. Rumors suggested a specific pet account (`@izzy*******`) belonged to her.
+My first task was to verify the digital presence of Subject TK. Rumors suggested a specific pet account (`@i**********`) belonged to her.
 
 To confirm the account owner without alerting the target, I used the Instagram "Forgot Password" routing method. This reveals a masked recovery email and phone number.
 
-![Instagram Forgot Password Discovery](assets/redacted_ig_forgot_password.png)
+![Instagram Forgot Password Discovery](assets/osint1/redacted_ig_forgot_password.jpg)
 *(Image: Masked email and SMS recovery options extracted from the pet account)*
 
 * **Masked Email Found:** `t*************3@gmail.com`
@@ -38,23 +45,23 @@ To confirm the account owner without alerting the target, I used the Instagram "
 
 **Analysis:** The masked email perfectly aligned with a 15-character string (`[redacted]3@gmail.com`) that matches Subject TK's known naming conventions and her frequent use of the number "3" in her digital signatures. 
 
-**Dead End Acknowledgment:** I ran the hypothesized email and variations of the username through **Sherlock** and **Maigret** to see if it was linked to a Pinterest, LinkedIn, or Spotify account (which could provide location data or wedding-related boards). However, the results were inconclusive. The accounts were either completely private, unindexed, or heavily sanitized. 
+**Dead End Acknowledgment:** I ran the hypothesized email and variations of the username through **Sherlock** and **Maigret** to see if it was linked to a Pinterest, LinkedIn, or Spotify account (which could provide location data or wedding-related boards). However, the results were inconclusive. The accounts were either completely private, unindexed, or heavily sanitized. Moreover, I tried checking if the email has been leaked in any data breach through platforms such as **HaveIBeenPwned** and **Epieos** but it was not involved in any data breaches. Furthermore, I also tried some google dorking to find some relevant information but only the divorce petition was found.
 
 ---
 
 ## 4. Association Timeline (Geospatial & Social Correlation)
 
-Since the direct digital enumeration failed, I pivoted to a "Pattern of Life" analysis. By analyzing public sightings and social media posts, a clear correlation between Subject V and Subject TK emerged.
+Since the direct digital enumeration failed, I pivoted to a "Pattern of Life" analysis. By analyzing public sightings, social media posts, and geospatial proximity, a clear correlation between Subject V and Subject TK emerged.
 
-| Date / Period | Location | OSINT Observation & Significance |
-| :--- | :--- | :--- |
-| **Mar 2022** | New York City, USA | Subject TK on a "solo" trip. Subject V's specific footwear was identified in the background of a video. |
-| **Oct 2022** | Europe / Chennai | Subject TK begins wearing a prominent diamond ring on her left hand during public promotions. |
-| **Aug 2023** | Norway | **Critical Sighting:** Leaked CCTV and eyewitness accounts place Subject V and Subject TK together in Scandinavia. |
-| **Aug 25, 2023** | Social Media | Subject TK posts a "Hers forever" story on the exact date of Subject V's wedding anniversary. |
-| **Nov 2023** | Chennai | Subject TK attends a movie success meet in a red saree (symbolic of Karva Chauth). Subject V posts their first direct photo together. |
-| **Early 2023** | Chennai (ECR) | Subject TK relocates to a high-privacy residence within a 4-minute drive of Subject V's beachfront property. |
-| **Mar 5, 2026** | Chennai | The "Hard Launch." Both subjects attend a high-profile wedding together in coordinated outfits, just days after the divorce leak. |
+| Date / Period | Location | OSINT Observation & Significance | Evidence (Redacted) |
+| :--- | :--- | :--- | :--- |
+| **Mar 2022** | New York City, USA | Subject TK on a "solo" trip. Subject V's specific footwear was identified in the background of a video. | ![Redacted Footwear Match](assets/osint1/redacted_nyc_shoes.jpg) |
+| **Oct 2022** | Europe / Chennai | Subject TK begins wearing a prominent diamond ring on her left hand during public promotions. | ![Redacted Ring Sighting](assets/osint1/redacted_ring_promo.jpg) |
+| **Aug 2023** | Norway | **Critical Sighting:** Leaked CCTV and eyewitness accounts place Subject V and Subject TK together in Scandinavia. | ![Redacted CCTV Sighting](assets/osint1/redacted_norway_cctv.jpg) |
+| **Aug 25, 2023** | Social Media | Subject TK posts a "Hers forever" story on the exact date of Subject V's wedding anniversary. | ![Redacted TK Story](assets/osint1/redacted_story.jpg) |
+| **Nov 2023** | Chennai | Subject TK attends a movie success meet in a red saree (symbolic of Karva Chauth). Subject V posts their first direct photo together. | ![Redacted Success Meet](assets/osint1/redacted_success_meet.jpg) |
+| **Early 2023** | Chennai (ECR) | Subject TK relocates to a high-privacy residence within a 4-minute drive of Subject V's beachfront property. | ![Redacted Geospatial Map](assets/osint1/redacted_ecr_map_proximity.jpg) |
+| **Mar 5, 2026** | Chennai | The "Hard Launch." Both subjects attend a high-profile wedding together in coordinated outfits, just days after the divorce leak. | ![Redacted Wedding Appearance](assets/osint1/redacted_wedding_entry.jpg) |
 
 ---
 
@@ -62,14 +69,14 @@ Since the direct digital enumeration failed, I pivoted to a "Pattern of Life" an
 
 The most crucial part of this investigation was verifying the divorce document that surfaced on February 27, 2026. Fans claimed it was a forged PDF. To find the truth, I went straight to the source: the **e-Courts Services India portal**.
 
-![e-Courts Search Portal](assets/redacted_ecourts_search.png)
+![e-Courts Search Portal](assets/osint1/ecourts_search.jpg)
 *(Image: Searching the official Indian judiciary portal using Party Names)*
 
 By searching the Chengalpattu District Court records for the petitioner and respondent names, I successfully located the official case registry. **The document leak was authentic.**
 
 ### Verified Case Details
 
-![e-Courts Case Status](assets/redacted_case_status.png)
+![e-Courts Case Status](assets/osint1/redacted_case_status.jpg)
 *(Image: The official case status confirming the filing and hearing dates)*
 
 | Parameter | Verified Detail |
