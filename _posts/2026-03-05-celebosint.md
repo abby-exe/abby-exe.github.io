@@ -44,7 +44,7 @@ To confirm the account owner without alerting the target, I used the Instagram "
 
 **Analysis:** The masked email perfectly aligned with a 15-character string (`[redacted]3@gmail.com`) that matches Subject TK's known naming conventions and her frequent use of the number "3" in her digital signatures. 
 
-**Dead End Acknowledgment:** I ran the hypothesized email and variations of the username through **Sherlock** and **Maigret** to see if it was linked to a Pinterest, LinkedIn, or Spotify account (which could provide location data or wedding-related boards). However, the results were inconclusive. The accounts were either completely private, unindexed, or heavily sanitized. Moreover, I tried checking if the email has been leaked in any data breach through platforms such as **HaveIBeenPwned** and **Epieos** but it was not involved in any data breaches. Furthermore, I also tried some google dorking to find some relevant information but only the divorce petition was found.
+**Dead End Acknowledgment:** I ran the hypothesized email and variations of the username through **Sherlock** and **Maigret** to see if it was linked to a Pinterest, LinkedIn, or Spotify account (which could provide location data or wedding-related boards). However, the results were inconclusive. The accounts were either completely private, unindexed, or heavily sanitized. Moreover, I tried checking if the email has been leaked in any data breach through platforms such as **HaveIBeenPwned** and **Epieos** but it was not involved in any data breaches. Furthermore, I also tried some **Google Dorking** to find some relevant information but only the divorce petition was found.
 
 ---
 
