@@ -105,13 +105,27 @@ The case was filed under the **Special Marriage Act, 1954**. The specific sectio
 ### Why I Did This
 As a fan, the constant barrage of fake news was exhausting. OSINT is about filtering noise to find facts. By treating this like an intelligence gathering exercise, I was able to separate the truth from the PR spin. 
 
-### Why I Stopped Where I Did (The Ethical Line)
-In OSINT, there is a fine line between investigation and harassment/doxxing. 
-* **Data Protection & Privacy:** I deliberately masked the phone numbers and emails found. Attempting to brute-force the email, SIM-swap the phone number, or send phishing links to confirm identity violates cybersecurity laws (like the Indian IT Act) and data privacy principles (PDPA).
-* **Passive Recon Only:** I did not contact the subjects, their management, or the courts. I strictly utilized publicly available registries and open-source data. 
-* **Document Privacy:** Family court documents are highly sensitive. While I verified the *existence* and *statutes* of the case via the public index, I made no attempt to illegally breach the court's intranet to download the unredacted petition, which would be a severe criminal offense.
+While the data points collected in this investigation show a **strong circumstantial correlation**, it is vital to acknowledge the inherent limitations of Open Source Intelligence. In a professional forensic context, a "pattern of life" does not equal "absolute proof" of an intimate relationship.
 
-## 7. Conclusion
-Through basic OSINT techniques—social media footprinting, timeline correlation, and public registry verification—we can definitively conclude that the 2026 Kollywood divorce rumors are rooted in verified legal facts. The timeline of Subject V and Subject TK's geospatial movements perfectly aligns with the timeline of marital breakdown cited in the official court filing. 
+### Why this is not 100% "Solid Evidence"
+To reach a 100% certainty threshold (the kind required in a court of law), an investigator would need **Non-Open Source Evidence**, which was not sought in this investigation for legal and ethical reasons. 
 
-Sometimes, the truth isn't hidden by hackers; it's sitting right there in the public domain, waiting for someone to connect the dots.
+**Missing "Smoking Gun" Evidence Includes:**
+1. **Admissions of Fact:** Direct, verified statements or leaked private communications (DMs/Emails) from the subjects themselves acknowledging the affair.
+2. **Financial Linkage:** Private bank statements or wire transfers showing shared expenses, property payments, or high-value gifts (which requires a subpoena).
+3. **Physical Evidence:** Non-public, high-resolution surveillance (unredacted) showing the subjects in a private setting where an intimate relationship is the only logical conclusion.
+4. **Primary Witness Testimony:** Sworn depositions from close associates or domestic staff with first-hand knowledge of the subjects' private lives.
+
+### Justification of Findings
+My findings represent a **High-Confidence Hypothesis** based on:
+* **The "Coincidence" Threshold:** The mathematical improbability of two high-profile individuals appearing in the same non-work locations (NYC, Norway, ECR) simultaneously over a 4-year period by chance.
+* **Official Legal Corroboration:** The specific sections of the **Special Marriage Act (27-1-a)** cited in the authenticated court registry provide the strongest external validation that these allegations are being treated as factual by the petitioner.
+
+### Legal & Ethical Compliance (PDPA & IT Act)
+This investigation was conducted with strict adherence to **Data Privacy** and **Ethical Hacking** standards:
+* **No Unauthorized Access:** I did not "hack" into any accounts. The "Forgot Password" method used is a standard OSINT reconnaissance technique using public-facing web features.
+* **Redaction for PDPA:** All personal phone numbers, private email addresses, and minor children's details have been redacted to prevent doxxing and comply with Personal Data Protection Acts.
+* **Public Interest vs. Privacy:** This report was created for educational purposes to demonstrate OSINT methodology using a high-profile public interest case, while respecting the subjects' right to a fair legal process.
+
+---
+**Verdict:** The evidence confirms a **Public Association** and a **Legal Dispute** involving allegations of infidelity. The "Affair" remains a highly probable investigative theory supported by patterns, but it remains a "theory" until the court issues a final decree.
