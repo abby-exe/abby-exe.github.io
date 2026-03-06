@@ -93,7 +93,7 @@ The case was filed under the **Special Marriage Act, 1954**. The specific sectio
 
 * **Section 27(1)(a): Adultery.** The legal claim that the respondent engaged in a relationship outside the marriage.
 * **Section 27(1)(b): Desertion.** Claiming the respondent deserted the petitioner for a continuous period.
-* **Section 27(1)(d): Cruelty.** * **Sections 36 & 37: Maintenance and Alimony.** Legal demands for financial support during and after the proceedings.
+* **Section 27(1)(d): Cruelty.**  **Sections 36 & 37**: Maintenance and Alimony.** Legal demands for financial support during and after the proceedings.
 
 **Validation:** The presence of these specific codes in the government database officially transitions the "affair rumors" from internet gossip to a matter of legal public record.
 
