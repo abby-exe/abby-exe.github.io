@@ -14,6 +14,8 @@ Welcome to my portfolio – here you'll find:
   <a href="/bugbounty.html">🐞 Bug Bounty Reports</a><br>
   <p></p>
   <a href="/events.html">🦹 Events</a><br>
+  <p></p>
+  <a href="/osint.html">💀 OSINT Investigations (Real Cases)</a><br>
 </p>
 
 ---
