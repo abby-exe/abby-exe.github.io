@@ -156,7 +156,7 @@ From blog content analysis:
 # 📧 Email Addresses Identified
 
 - `d1ved33p@gmail.com`
-- *(Second email identified during extended investigation)*
+- *(Email identified during investigation)*
 
 ---
 
