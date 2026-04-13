@@ -16,6 +16,10 @@ Welcome to my portfolio – here you'll find:
   <a href="/events.html">🦹 Events</a><br>
   <p></p>
   <a href="/osint.html">💀 OSINT Investigations (Real Cases)</a><br>
+  <p></p>
+  <a href="/simulatedosint.html">🕵🏽‍♂️ Simulated OSINT Investigations</a><br>
+  <p></p>
+  <a href="/experiments.html">🔬 Experiments (Projects)</a><br>
 </p>
 
 ---
