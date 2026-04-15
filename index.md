@@ -11,9 +11,9 @@ I’m a cybersecurity enthusiast who focuses on thinking like an attacker to bui
 
 I actively practice through:
 
-🔍 CTF challenges 
-🕵️ OSINT investigations
-🌐 Web application security testing (in near future!)
+> 🔍 CTF challenges
+> 🕵️ OSINT investigations
+> 🌐 Web application security testing (in near future!)
 
 I focus on understanding how vulnerabilities actually work, not just using tools.
 
