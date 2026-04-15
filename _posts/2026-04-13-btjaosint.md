@@ -6,8 +6,6 @@ tags: [osint, btja, threat-hunting, social-engineering, malware-analysis]
 date: 2026-04-12
 ---
 
-# 🕵️ OSINT Investigation – MSP Data Breach
-
 ## 📌 Overview
 
 This investigation was conducted as part of the **BTJA (Blue Team Junior Analyst) – Introduction to OSINT** course.
