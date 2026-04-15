@@ -6,7 +6,11 @@ title: "Welcome to AbbySec"
 # ☠️ Abbhilash Simanchalam ☠️
 
 Cybersecurity graduate from UNITEN,  
->CTF player | OSINT enthusiast | Bug bounty enthusiast
+>CTF player
+
+>OSINT enthusiast
+
+>Bug bounty enthusiast
 
 `“Beneath this mask there is more than flesh. Beneath this mask there is an idea… and ideas are bulletproof” - V`
 
