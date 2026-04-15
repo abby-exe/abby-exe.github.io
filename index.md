@@ -5,9 +5,11 @@ title: "Welcome to AbbySec"
 
 # ☠️ Abbhilash Simanchalam ☠️
 
-Cybersecurity graduate from UNITEN | CTF player | OSINT enthusiast | Bug bounty enthusiast
+Cybersecurity Graduate @ UNITEN
+ 
+> CTF Player • OSINT • Bug Bounty  
 
-Welcome to my portfolio – here you'll find:
+Welcome to my portfolio — here you'll find:
 
 <p>
   <a href="/ctf.html">▶️ CTF Writeups</a><br>
