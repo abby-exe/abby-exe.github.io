@@ -157,6 +157,7 @@ A post advertised stolen car parts with encoded contact details.
 ✅ **Final Answer:**
 `twizzerichard@gmail.com`
 
+
 ---
 
 # 🧑‍💻 Investigation Summary
@@ -172,6 +173,7 @@ A post advertised stolen car parts with encoded contact details.
 | **Event Date** | Feb 14, 2025 | Hidden Metadata |
 | **Contact** | `twizzerichard@gmail.com` | Hex Obfuscation Reversal |
 
+
 ---
 
 # 🛡️ MITRE ATT&CK Mapping
@@ -182,6 +184,7 @@ A post advertised stolen car parts with encoded contact details.
 | **T1589** | Gather Identity Information | Extracting PII like Frank Castle’s email address. |
 | **T1027** | Obfuscated/Encoded Data | Reversing the use of Hex and Base64 encoding. |
 | **T1001** | Data Obfuscation | Identification of data hidden via Steganography. |
+
 
 ---
 
@@ -194,6 +197,7 @@ A post advertised stolen car parts with encoded contact details.
 | 3 | **Steganography** | Actively used by threat actors for covert real-world coordination. |
 | 4 | **Infrastructure Reuse** | Criminals frequently link platforms or reuse existing infrastructure. |
 
+
 ---
 
 # 🛠️ Tools Used
@@ -205,6 +209,7 @@ A post advertised stolen car parts with encoded contact details.
 | **Browser DevTools** | Client-side analysis and JavaScript execution. |
 | **Steganography Tool** | Extracting hidden messages from image files. |
 | **Manual OSINT** | Analytical thinking and geographic identification. |
+
 
 ---
 
@@ -219,6 +224,7 @@ A post advertised stolen car parts with encoded contact details.
 | **Platform Linkage** | ✅ Linked primary site to secondary infrastructure. |
 
 ---
+
 
 **⚠️ Disclaimer**
 *This was a controlled lab environment for educational purposes only. No real systems were harmed or accessed.*
