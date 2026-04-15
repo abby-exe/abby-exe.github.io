@@ -6,8 +6,6 @@ tags: [osint, btja, darkweb, steganography, cyberchef, investigation]
 date: 2026-04-15
 ---
 
-# 🕵️ Dark Web Operation – Investigation Writeup
-
 ## 📌 Overview
 
 This investigation was conducted as part of the **BTJA (Blue Team Junior Analyst) – Dark Web Operations Capstone**.
