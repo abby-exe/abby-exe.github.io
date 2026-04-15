@@ -5,7 +5,7 @@ title: "Welcome to AbbySec"
 
 # ☠️ Abbhilash Simanchalam ☠️
 
-Cybersecurity graduate from UNITEN,  
+Cybersecurity Graduate from UNITEN,  
 >CTF player
 
 >OSINT enthusiast
