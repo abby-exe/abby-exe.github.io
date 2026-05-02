@@ -8,6 +8,8 @@ date: 2026-05-02
 
 ## 📌 Overview
 
+![Mr.Robot Ransomware Page](/assets/img/ransomware-lab/mrrobotransom.png)
+
 Welcome to what might be the most hands-on, chaos-filled, and genuinely educational cybersecurity lab you'll read about today. This is a full account of how I built a **local ransomware detection lab** completely from scratch — two virtual machines, a SIEM, a simulated ransomware attack, and enough troubleshooting to make anyone question their life choices.
 
 Here's what this project covers:
