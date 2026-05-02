@@ -6,15 +6,9 @@ tags: [wazuh, siem, ransomware, atomic-red-team, blue-team, detection, cybersecu
 date: 2026-05-02
 ---
 
-# 🛡️ Building a Ransomware Detection Lab from Scratch — Wazuh SIEM + Atomic Red Team
-
-> **"Detection is not about catching malware — it's about understanding behavior."**
-
----
-
 ## 📌 Overview
 
-Welcome to what might be the most hands-on, chaos-filled, and genuinely educational cybersecurity lab you'll read about today. This is a full account of how I built a **cloud-adjacent ransomware detection lab** completely from scratch — two virtual machines, a SIEM, a simulated ransomware attack, and enough troubleshooting to make anyone question their life choices.
+Welcome to what might be the most hands-on, chaos-filled, and genuinely educational cybersecurity lab you'll read about today. This is a full account of how I built a **local ransomware detection lab** completely from scratch — two virtual machines, a SIEM, a simulated ransomware attack, and enough troubleshooting to make anyone question their life choices.
 
 Here's what this project covers:
 
@@ -32,19 +26,19 @@ By the end of this, you'll understand how a SOC analyst detects ransomware behav
 ## 🏗️ Lab Architecture
 
 ```
-┌─────────────────────────────────────────────┐
-│            Your Laptop (Host)               │
-│                                             │
-│   ┌──────────────┐    ┌──────────────────┐  │
-│   │  Ubuntu VM   │    │   Windows VM     │  │
-│   │  Wazuh SIEM  │◄───│  Victim Machine  │  │
-│   │  (Server)    │    │  (Wazuh Agent)   │  │
-│   │192.168.56.10 │    │ 192.168.56.11    │  │
-│   └──────────────┘    └──────────────────┘  │
-│         ▲                     ▲             │
-│         └── Internal (labnet) ┘             │
-│         └── NAT (Internet)    ┘             │
-└─────────────────────────────────────────────┘
+                                            ┌─────────────────────────────────────────────┐
+                                            │            Your Laptop (Host)               │
+                                            │                                             │
+                                            │   ┌──────────────┐    ┌──────────────────┐  │
+                                            │   │  Ubuntu VM   │    │   Windows VM     │  │
+                                            │   │  Wazuh SIEM  │◄───│  Victim Machine  │  │
+                                            │   │  (Server)    │    │  (Wazuh Agent)   │  │
+                                            │   │192.168.56.10 │    │ 192.168.56.11    │  │
+                                            │   └──────────────┘    └──────────────────┘  │
+                                            │         ▲                     ▲             │
+                                            │         └── Internal (labnet) ┘             │
+                                            │         └── NAT (Internet)    ┘             │
+                                            └─────────────────────────────────────────────┘
 ```
 
 **Components:**
@@ -119,7 +113,7 @@ In VirtualBox → **New** → fill in:
 **Install Ubuntu:**
 - Language: English
 - Installation type: Normal
-- Create user: `abby` (or your preferred name)
+- Create user: `user1` (or your preferred name)
 - Enable auto-login (optional)
 
 After installation, open terminal and update:
@@ -139,8 +133,6 @@ Test internet:
 ```bash
 ping -c 4 google.com
 ```
-
-> 📸 *[Screenshot: Ubuntu VM running, terminal showing IP address]*
 
 ---
 
@@ -170,8 +162,6 @@ After install, install **VirtualBox Guest Additions** for proper fullscreen:
 3. Install → Reboot
 
 > ⚠️ **If Guest Additions don't apply:** Try right-clicking the installer and selecting **Run as Administrator**. Also check: Settings → Display → Graphics Controller should be **VMSVGA**, Video Memory: **128 MB**.
-
-> 📸 *[Screenshot: Windows 10 VM desktop, fullscreen working]*
 
 ---
 
@@ -251,10 +241,6 @@ ping 192.168.56.11
 
 > Both should reply. If only one direction works, the firewall rule above wasn't enabled yet.
 
-> 📸 *[Screenshot: Successful ping from Windows to Ubuntu]*
-
-> 📸 *[Screenshot: Successful ping from Ubuntu to Windows]*
-
 **Why 192.168.56.x?**  
 This is a standard private IP range (RFC 1918). `.10` for the server, `.11` for the client — clean, conventional, and memorable. The `/24` subnet means both machines share the same network.
 
@@ -304,65 +290,111 @@ https://192.168.56.10
 
 You may see a browser security warning (self-signed cert). Click **Advanced → Proceed**.
 
-> 📸 *[Screenshot: Wazuh login page]*
+![Wazuh Login Page](/assets/img/ransomware-lab/wazuh-login.jpg)
 
-> 📸 *[Screenshot: Wazuh dashboard — showing "0 Active Agents"]*
+![Wazuh Dashboard Overview](/assets/img/ransomware-lab/wazuh-dashboard.jpg)
 
 ---
 
 ### 2.2 Install Wazuh Agent on Windows
-
-From the Wazuh dashboard:
-1. Click **"Add agent"**
-2. Select **Windows**
-3. Set:
-   - **Manager IP:** `192.168.56.10`
-   - **Agent Name:** `Windows-Victim`
-4. Copy the generated PowerShell command
-
-Run the generated command in **PowerShell as Administrator** on the Windows VM.
-
-Alternatively, download directly:
-
-```
-https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.5-1.msi
-```
-
-Install via GUI (more reliable):
-
+ 
+There are **two ways** to register a Wazuh agent. We'll cover both — the dashboard method and the manual key method — because in practice you'll hit both of them.
+ 
+---
+ 
+#### Method A — Via the Wazuh Dashboard (Recommended)
+ 
+In the Wazuh dashboard, go to **Agents → Deploy new agent**.
+ 
+Configure the following:
+- **Package:** Windows → MSI 32/64 bits
+- **Server address:** `192.168.56.10` *(this is your Ubuntu/Wazuh server IP — NOT the Windows IP)*
+- **Agent name:** `Windows-Victim`
+> ⚠️ **Critical mistake to avoid:** The dashboard pre-fills the server address field and it can be easy to accidentally type your Windows IP (`192.168.56.11`) here instead of the Ubuntu SIEM IP (`192.168.56.10`). If the agent points to itself, it will never connect. Double-check this field before copying the command.
+ 
+![Wazuh Deploy New Agent Page](/assets/img/ransomware-lab/deployagent.jpg)
+ 
+The dashboard will generate a PowerShell install command. Run it in **PowerShell as Administrator** on the Windows VM:
+ 
 ```powershell
-msiexec.exe /i $env:temp\wazuh-agent.msi
+Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.5-1.msi `
+  -OutFile $env:tmp\wazuh-agent.msi
+msiexec.exe /i $env:tmp\wazuh-agent.msi /q `
+  WAZUH_MANAGER='192.168.56.10' `
+  WAZUH_AGENT_GROUP='default' `
+  WAZUH_AGENT_NAME='Windows-Victim' `
+  WAZUH_REGISTRATION_SERVER='192.168.56.10'
+NET START WazuhSvc
 ```
-
-During installation, enter:
+ 
+![Powershell Running the Agent Install](/assets/img/ransomware-lab/poweragent.jpg)
+ 
+---
+ 
+#### Method B — Manual Registration via `manage_agents` (What We Actually Did)
+ 
+If the dashboard command doesn't register the agent correctly, you can register it manually using Wazuh's built-in agent manager on the Ubuntu server. This gives you more control and is a good thing to understand.
+ 
+**Step 1 — On Ubuntu, register the agent:**
+ 
+```bash
+sudo /var/ossec/bin/manage_agents
+```
+ 
+Inside the interactive menu:
+- Press `A` → Add an agent
+  - Name: `Windows-Victim`
+  - IP: `192.168.56.11`
+  - Confirm: `y`
+- Press `E` → Extract key for an agent
+  - Select agent ID `001`
+  - Copy the entire base64 key string that appears
+    
+![Agent Registration via Terminal](/assets/img/ransomware-lab/terminalagent.jpg)
+ 
+**Step 2 — On Windows, open the Wazuh Agent GUI:**
+ 
+Navigate to:
+```
+C:\Program Files (x86)\ossec-agent\win32ui.exe
+```
+ 
+Or search **"Wazuh Agent"** in the Start menu.
+ 
+In the GUI:
 - **Manager IP:** `192.168.56.10`
-- **Agent Name:** `Windows-Victim`
+- **Authentication key:** paste the base64 key from the previous step
+- Click **Save**
+- Click **Manage → Start**
+  
+![Wazuh Agent Configuration GUI](/assets/img/ransomware-lab/agent-config.jpg)
+ 
+---
+ 
+#### Verifying the Connection
+ 
+Back in the Wazuh dashboard → **Agents** — you should see:
+ 
+| Field | Value |
+|-------|-------|
+| Agent Name | `Windows-Victim` |
+| Status | 🟢 Active |
+| Version | v4.7.5 |
+| IP | 192.168.56.11 |
 
-Start the Wazuh service (in PowerShell as Admin):
-
-```powershell
-net start WazuhSvc
-```
-
-Verify it's running:
-
-```powershell
-Get-Service WazuhSvc
-```
-
-> ⚠️ **Common Error — "System error 5 / Access Denied":**  
-> You must run PowerShell **as Administrator**. Windows 10 does not use `sudo` — right-click PowerShell → **Run as Administrator**.
-
+![Wazuh Agent Connected Successfully](/assets/img/ransomware-lab/agent-connected.jpg)
+ 
 > ⚠️ **Version Mismatch Issue:**  
-> If your agent shows "never connected" in the dashboard and your logs say "Agent version must be lower or equal to manager version," your agent is newer than the server.  
-> **Fix:** Uninstall the agent → download the matching version (4.7.5) → reinstall.
-
-> 📸 *[Screenshot: Wazuh Agent GUI showing "Running"]*
-
-> 📸 *[Screenshot: Wazuh dashboard showing Windows-Victim as Active agent]*
-
-To enable auto-start on Ubuntu after reboots:
-
+> If the agent shows "never connected" and your agent logs say `"Agent version must be lower or equal to manager version"`, your installed agent is newer than the server.  
+> **Fix:** Uninstall the current agent → download the exact matching version (`4.7.5`) → reinstall using Method A above.
+ 
+> ⚠️ **"System error 5 / Access Denied" when starting the service:**  
+> You must run PowerShell as Administrator. Right-click → **Run as Administrator**. Windows doesn't use `sudo`.
+ 
+---
+ 
+To enable auto-start of Wazuh services on Ubuntu after reboots:
+ 
 ```bash
 sudo systemctl enable wazuh-manager
 sudo systemctl enable wazuh-dashboard
@@ -400,49 +432,89 @@ Bulk-create 50 files (the more files that change, the clearer the ransomware pat
 for /l %i in (1,1,50) do echo Test File %i > C:\Users\abby\Documents\SensitiveData\file%i.txt
 ```
 
-> 📸 *[Screenshot: SensitiveData folder with all created files]*
+![Sensitive Data Files Created](/assets/img/ransomware-lab/sensitive-files.jpg)
 
 ---
 
 ## 🔍 Phase 4 — Enabling File Integrity Monitoring (FIM)
-
+ 
 > ⚠️ **This is the most commonly skipped step — and without it, Wazuh detects NOTHING.**
-
-Wazuh's File Integrity Monitoring needs to know which folder to watch. This configuration lives on the **agent side (Windows)**, not the server.
-
-**On Windows VM:**
-
-Open Notepad **as Administrator** → File → Open → navigate to:
-
+ 
+FIM tells Wazuh exactly which folders to watch for changes. We configure this in **two places**: the Windows agent (to monitor our victim files) and the Ubuntu server (to also monitor the Desktop where ransom notes get dropped). Both are needed for full coverage.
+ 
+---
+ 
+### 4.1 Configure FIM on the Windows Agent
+ 
+Open Notepad **as Administrator**:
+- Start → type `notepad` → right-click → **Run as administrator**
+- File → Open → navigate to:
 ```
 C:\Program Files (x86)\ossec-agent\
 ```
-
-Change file filter to **All Files (*.*)** → open `ossec.conf`
-
-Find the `<syscheck>` section and modify it:
-
+ 
+Change the file type filter (bottom-right) to **All Files (*.*)** → open `ossec.conf`
+ 
+Find the `<syscheck>` section and add your monitored directories:
+ 
 ```xml
 <syscheck>
   <frequency>60</frequency>
   <directories realtime="yes" report_changes="yes">C:\Users\abby\Documents\SensitiveData</directories>
 </syscheck>
 ```
-
-Save the file (Ctrl + S) → then restart the agent:
-
+ 
+Save (Ctrl + S) → restart the agent:
+ 
 ```powershell
 Restart-Service wazuhsvc
 ```
 
-> ⚠️ **Key Settings Explained:**
-> - `realtime="yes"` — detects changes the moment they happen (not during a scheduled scan)
-> - `report_changes="yes"` — actually sends the events to the dashboard (without this, events may silently drop)
-> - `frequency="60"` — full scan every 60 seconds (in addition to real-time monitoring)
+![Wazuh File Integrity Monitoring Configuration Windows](/assets/img/ransomware-lab/fim-config-win.jpg)
 
-> ⚠️ **Warning:** If you only configure FIM on the server's `ossec.conf` (Ubuntu side), it won't work. The directory monitoring must be in the **agent's** ossec.conf on Windows.
-
-> 📸 *[Screenshot: Windows ossec.conf with syscheck directory configured]*
+> 💡 **Key Settings Explained:**
+> - `realtime="yes"` — detects changes the instant they happen, not just during scheduled scans
+> - `report_changes="yes"` — actually ships the event to the dashboard (without this, changes are silently tracked but never alerted on)
+> - `frequency="60"` — runs a full baseline scan every 60 seconds on top of real-time monitoring
+ 
+---
+ 
+### 4.2 Configure FIM on the Ubuntu Server
+ 
+We also add directory monitoring on the server side — this catches the Desktop (where Atomic Red Team drops ransom notes) and reinforces monitoring of the SensitiveData path. Open the server config:
+ 
+```bash
+sudo nano /var/ossec/etc/ossec.conf
+```
+ 
+Find the `<!-- Directories to check -->` comment inside the `<syscheck>` block and add:
+ 
+```xml
+<!-- Directories to check  (perform all possible verifications) -->
+<directories realtime="yes">C:\Users\abby\Desktop</directories>
+<directories>/etc,/usr/bin,/usr/sbin</directories>
+<directories>/bin,/sbin,/boot</directories>
+<directories realtime="yes">C:\Users\abby\Documents\SensitiveData</directories>
+```
+ 
+Save and exit (Ctrl + X → Y → Enter) → restart the Wazuh manager:
+ 
+```bash
+sudo systemctl restart wazuh-manager
+```
+ 
+![Wazuh File Integrity Monitoring Configuration Ubuntu](/assets/img/ransomware-lab/fim-config-ubuntu.jpg)
+ 
+---
+ 
+> ⚠️ **Why configure FIM in both places?**
+>
+> | Location | What it controls |
+> |----------|-----------------|
+> | Windows `ossec.conf` (agent) | Tells the agent *what to collect* and send |
+> | Ubuntu `ossec.conf` (server) | Tells the manager *what to enforce* globally |
+>
+> Configuring only the server side and skipping the agent is the most common reason FIM silently does nothing. You need both.
 
 ---
 
@@ -475,7 +547,7 @@ Verify:
 Get-Command Invoke-AtomicTest
 ```
 
-> 📸 *[Screenshot: Invoke-AtomicTest command loading successfully]*
+![Atomic Red Team Invoke Module](/assets/img/ransomware-lab/atomic-invoke.jpg)
 
 ### 5.2 Clone the Atomic Tests Repository
 
@@ -499,6 +571,8 @@ Test-Path "C:\Users\abby\atomic-red-team\atomics"
 # Should return: True
 ```
 
+![Atomic Red Team Tests Installation](/assets/img/ransomware-lab/atomic-tests.jpg)
+
 ### 5.3 Preview the Ransomware Test
 
 Let's see what T1486 (Data Encrypted for Impact) offers:
@@ -519,9 +593,7 @@ Install prerequisites (this installs GPG4Win for encryption):
 Invoke-AtomicTest T1486 -GetPrereqs -TestNumbers 8 -PathToAtomicsFolder "C:\Users\abby\atomic-red-team\atomics"
 ```
 
-> 📸 *[Screenshot: Atomic Red Team prerequisites satisfied]*
-
-> 📸 *[Screenshot: T1486 test details showing available simulations]*
+![Atomic Red T1486 Pre-Reqs Installation](/assets/img/ransomware-lab/atomic-prereq.jpg)
 
 ---
 
@@ -538,7 +610,7 @@ Invoke-AtomicTest T1486 -TestNames "Akira Ransomware drop files with .akira Exte
 
 Check your desktop — you should see `akira_readme.txt` with a realistic (but fake) ransom note.
 
-> 📸 *[Screenshot: akira_readme.txt on Desktop with ransom note contents]*
+![Simulated Ransomware Note](/assets/img/ransomware-lab/ransom-note.jpg)
 
 ### 6.2 Simulate File Encryption (Single File First)
 
@@ -551,8 +623,6 @@ Invoke-AtomicTest T1486 -TestNumbers 8 `
 ```
 
 Check the folder — you should see `file5.txt` and `file5.txt.gpg` (the encrypted version).
-
-> 📸 *[Screenshot: Folder showing both original .txt and encrypted .gpg file]*
 
 ### 6.3 Full Ransomware Simulation — Mass Encryption + Deletion
 
@@ -590,7 +660,9 @@ This triggers:
 > }
 > ```
 
-> 📸 *[Screenshot: SensitiveData folder after attack — only .gpg files remain, originals deleted]*
+![Atomic Red Team Ransomware Simulation Execution](/assets/img/ransomware-lab/atomic-execution.jpg)
+
+![Encrypted Files with GPG (.gpg)](/assets/img/ransomware-lab/encrypted-files.jpg)
 
 ---
 
@@ -626,9 +698,9 @@ Change the time range in the top-right to **Last 15 minutes** or **Last 1 hour**
 | File deleted | Original `.txt` file removed | T1070.004 |
 | File modified | Content/checksum changed | T1485 |
 
-> 📸 *[Screenshot: Wazuh Security Events showing "File added" and "File deleted" events]*
+![Wazuh Detected File Creation and Deletion Events](/assets/img/ransomware-lab/file-events.jpg)
 
-> 📸 *[Screenshot: Individual event expanded — showing file path, rule ID, agent info]*
+![MITRE ATT&CK Mapping in Wazuh](/assets/img/ransomware-lab/mitre-mapping.jpg)
 
 ### 7.3 Verifying the Detection Pipeline
 
@@ -646,8 +718,6 @@ echo "attack" >> C:\Users\abby\Documents\SensitiveData\file1.txt
 
 You should see a new JSON entry appear in the Ubuntu terminal in real-time. If you do, the pipeline is working and you just need to look in the right place in the UI.
 
-> 📸 *[Screenshot: alerts.json showing live incoming events from Windows agent]*
-
 ### 7.4 Understanding the Hash Change Detection
 
 When Wazuh's FIM monitors a file, it stores a baseline hash (checksum). When ransomware encrypts that file:
@@ -658,7 +728,7 @@ When Wazuh's FIM monitors a file, it stores a baseline hash (checksum). When ran
 
 This is why encryption is detectable even without seeing the ransomware process itself — the *behavior* of many files changing hashes simultaneously is the tell.
 
-> 📸 *[Screenshot: Wazuh showing file hash change events / integrity monitoring]*
+![Hash Change in Wazuh](/assets/img/ransomware-lab/hashchange.jpg)
 
 ---
 
@@ -669,8 +739,6 @@ This is why encryption is detectable even without seeing the ransomware process 
 | **T1486** | Data Encrypted for Impact | GPG encryption of victim files via Atomic Red Team |
 | **T1485** | Data Destruction | Deletion of original files after encryption |
 | **T1070.004** | Indicator Removal: File Deletion | Removing `.txt` originals to hide pre-encryption state |
-
-> 📸 *[Screenshot: MITRE ATT&CK mapping visible in Wazuh event details]*
 
 ---
 
