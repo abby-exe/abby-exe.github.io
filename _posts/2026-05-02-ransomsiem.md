@@ -26,19 +26,19 @@ By the end of this, you'll understand how a SOC analyst detects ransomware behav
 ## 🏗️ Lab Architecture
 
 ```
-                                            ┌─────────────────────────────────────────────┐
-                                            │            Your Laptop (Host)               │
-                                            │                                             │
-                                            │   ┌──────────────┐    ┌──────────────────┐  │
-                                            │   │  Ubuntu VM   │    │   Windows VM     │  │
-                                            │   │  Wazuh SIEM  │◄───│  Victim Machine  │  │
-                                            │   │  (Server)    │    │  (Wazuh Agent)   │  │
-                                            │   │192.168.56.10 │    │ 192.168.56.11    │  │
-                                            │   └──────────────┘    └──────────────────┘  │
-                                            │         ▲                     ▲             │
-                                            │         └── Internal (labnet) ┘             │
-                                            │         └── NAT (Internet)    ┘             │
-                                            └─────────────────────────────────────────────┘
+                                      ┌─────────────────────────────────────────────┐
+                                      │            Your Laptop (Host)               │
+                                      │                                             │
+                                      │   ┌──────────────┐    ┌──────────────────┐  │
+                                      │   │  Ubuntu VM   │    │   Windows VM     │  │
+                                      │   │  Wazuh SIEM  │◄───│  Victim Machine  │  │
+                                      │   │  (Server)    │    │  (Wazuh Agent)   │  │
+                                      │   │192.168.56.10 │    │ 192.168.56.11    │  │
+                                      │   └──────────────┘    └──────────────────┘  │
+                                      │         ▲                     ▲             │
+                                      │         └── Internal (labnet) ┘             │
+                                      │         └── NAT (Internet)    ┘             │
+                                      └─────────────────────────────────────────────┘
 ```
 
 **Components:**
